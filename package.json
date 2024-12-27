@@ -1,0 +1,26 @@
+{
+  "name": "vector-nd",
+  "version": "1.0.0",
+  "description": "A Vector implementation written in typescript.",
+  "main": "index.js",
+   "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+	 "postinstall": "git clone git@github.com:micrjames/StringBuilder",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.23.5",
+    "@babel/preset-env": "^7.23.5",
+    "@babel/preset-typescript": "^7.23.3",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "@types/jest": "^29.5.11"
+  }
+}
