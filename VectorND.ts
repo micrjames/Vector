@@ -18,6 +18,7 @@ export class VectorND {
    }
 
    at(index: number): number {
+	  if(index < 0 || index > this.N-1) throw new Error("Index Out of Range");
 	  return this._vec[index];
    }
    indexOf(element: number): number {
@@ -31,6 +32,29 @@ export class VectorND {
 
    get N(): number {
 	  return this._N;
+   }
+
+   set values(newValues: number[]) {
+   }
+
+   addAValue(newValue: number): VectorND {
+	  return new VectorND(this.N);
+   }
+
+   normalize(): VectorND {
+	  return new VectorND(this.N);
+   }
+
+   scale(scale: number): VectorND {
+	  return new VectorND(this.N);
+   }
+
+   negate(): VectorND {
+	  return new VectorND(this.N);
+   }
+
+   private operateOnAllValues(operation: (val: number, index: number) => number): VectorND {
+	  return new VectorND(this.N);
    }
 
    toString(): String {
