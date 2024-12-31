@@ -35,6 +35,10 @@ export class VectorND {
    }
 
    set values(newValues: number[]) {
+	  if(newValues.length > this.N)
+		 throw new Error("Too Many Elements in Vector");
+
+	  this._vec = newValues;
    }
 
    addAValue(newValue: number): VectorND {
