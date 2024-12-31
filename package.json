@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-	"postinstall": "git clone git@github.com:micrjames/StringBuilder && git clone git@github.com:micrjames/Utilities && cd Utilities && npm i",
+	"postinstall": "git clone git@github.com:micrjames/Range && git clone git@github.com:micrjames/StringBuilder && git clone git@github.com:micrjames/Utilities && cd Utilities && npm i",
     "test": "jest"
   },
   "keywords": [],

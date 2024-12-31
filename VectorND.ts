@@ -1,5 +1,6 @@
 import { StringBuilder } from "./StringBuilder/StringBuilder";
 import { Utilities } from "./Utilities/Utilities";
+import { Range } from "./Range/range";
 
 export class VectorND {
    private _vec: number[];
@@ -42,7 +43,18 @@ export class VectorND {
    }
 
    addAValue(newValue: number): VectorND {
-	  return new VectorND(this.N);
+	  // create an array for the elements of the Vector
+	  const range = new Range(this.N);
+	  let vecValueArr: number[] = [];
+	  for(const idx of [...range])
+		 vecValueArr.push(this.at(idx));
+
+	  // adding a value to the vector, so create a new vector with a size of one more.
+	  vecValueArr.push(newValue);
+	  const newVector = new VectorND(this.N+1);
+	  newVector.values = vecValueArr;
+
+	  return newVector;
    }
 
    normalize(): VectorND {

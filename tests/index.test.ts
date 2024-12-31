@@ -1,4 +1,5 @@
 import { VectorND } from "../VectorND";
+import { Range } from "../Range/range";
 
 describe("A Vector", () => {
    let N: number;
@@ -79,7 +80,6 @@ describe("A Vector", () => {
 			   beforeAll(() => {
 				  newValues = [1, 1];
 				  vec2D.values = newValues;
-				  console.log(vec2D.toString());
 			   });
 			   describe("Set", () => {
 				  test("Should not be undefined.", () => {
@@ -105,8 +105,8 @@ describe("A Vector", () => {
 				  test("Should have a 'one' as the first element.", () => {
 					 const elementIdx = 0;
 					 const element = 1;
-					 const isZero1stElement = vec2D.indexOf(element) === elementIdx;
-					 expect(isZero1stElement).toBeTruthy();
+					 const isOne1stElement = vec2D.indexOf(element) === elementIdx;
+					 expect(isOne1stElement).toBeTruthy();
 				  });
 				  test("Should consist of a two element set of all ones.", () => {
 					 const element = 1;
@@ -134,19 +134,52 @@ describe("A Vector", () => {
 			describe("With New Value", () => {
 			   let newVec2D: VectorND;
 			   let newValue: number;
+			   let newVec2DSize: number;
 			   beforeAll(() => {
 				  newValue = 0;
 				  newVec2D = vec2D.addAValue(newValue);
+				  newVec2DSize = newVec2D.N;
 			   });
 			   describe("Set", () => {
-				  test.todo("Should not be undefined.");
-				  test.todo("Should have elements that are not undefined.");
-				  test.todo("Should consist of 3 elements.");
-				  test.todo("Should have each element typed as number.");
+				  test("Should not be undefined.", () => {
+					 expect(newVec2D).toBeDefined();
+				  });
+				  test("Should have elements that are not undefined.", () => {
+					 for(const idx of [0, 1]) {
+						const whichElement = newVec2D.at(idx);
+						expect(whichElement).toBeDefined();
+					 }
+				  });
+				  test("Should consist of 1 more element.", () => {
+					 expect(newVec2DSize).toBe(N+1);
+				  });
+				  test("Should have each element typed as number.", () => {
+					 for(const idx of [0, 1]) {
+						const whichElement = newVec2D.at(idx);
+						expect(whichElement).toEqual(expect.any(Number));
+					 }
+				  });
 			   });
 			   describe("Element Indexed", () => {
-				  test.todo("Should have a 'zero' as the last element.");
-				  test.todo("Should consist of a three element set of all zeros.");
+				  test("Should have a 'zero' as the last element.", () => {
+					 const elementIdx = newVec2DSize-1;
+					 const element = 0;
+					 const isZeroLastElement = newVec2D.indexOf(element) === elementIdx;
+					 expect(isZeroLastElement).toBeTruthy();
+				  });
+				  test("Should consist of two 'one' elements and a final 'zero' element'.", () => {
+					 const zeroEl = 0;
+					 const onesEl = 1;
+					 let vec2DZeroArr: number[] = [];
+					 let vec2DOnesArr: number[] = [];
+					 for(const idx of [...new Range(newVec2DSize)]) {
+						const whichElement = newVec2D.at(idx);
+						if(whichElement === zeroEl) vec2DZeroArr.push(zeroEl);
+						if(whichElement === onesEl) vec2DOnesArr.push(onesEl);
+					 }
+					 expect(vec2DZeroArr).toHaveLength(1);
+					 expect(vec2DOnesArr).toHaveLength(2);
+				  });
 			   });
 			});
 		 });
