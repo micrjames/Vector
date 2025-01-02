@@ -187,7 +187,8 @@ describe("A Vector", () => {
 			let newVec2D: VectorND;
 			describe("Normalize", () => {
 			   beforeAll(() => {
-				  newVec2D = vec2D.normalize();
+				  const newVec2D = vec2D.normalize();
+				  console.log(newVec2D.toString());
 			   });
 			   describe("Set", () => {
 				  test.todo("Should not be undefined.");

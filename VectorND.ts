@@ -3,7 +3,7 @@ import { Utilities } from "./Utilities/Utilities";
 import { Range } from "./Range/range";
 
 export class VectorND {
-   private _vec: number[];
+   private _vec: number[] = [];
    private _N: number;
    private utility: Utilities;
 
@@ -58,7 +58,17 @@ export class VectorND {
    }
 
    normalize(): VectorND {
-	  return new VectorND(this.N);
+	  const length_squared = this._vec.map(els => els ** 2).reduce((sum, curr) => sum + curr);
+	  const length =  Math.sqrt(length_squared);
+	  const normedVector = new VectorND(this.N);
+
+	  const range = new Range(this.N);
+	  let vecValueArr: number[] = [];
+	  for(const idx of [...range])
+		 vecValueArr.push(this.at(idx)/length);
+	  normedVector.values = vecValueArr;
+
+	  return normedVector;
    }
 
    scale(scale: number): VectorND {
