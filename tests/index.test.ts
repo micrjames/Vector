@@ -185,25 +185,49 @@ describe("A Vector", () => {
 		 });
 		 describe("By Operations from Non-All Zero Values", () => {
 			let newVec2D: VectorND;
+			let newVec2DSize: number;
 			describe("Normalize", () => {
 			   beforeAll(() => {
-				  const newVec2D = vec2D.normalize();
-				  console.log(newVec2D.toString());
+				  newVec2D = vec2D.normalize();
+				  newVec2DSize = newVec2D.N;
 			   });
 			   describe("Set", () => {
-				  test.todo("Should not be undefined.");
-				  test.todo("Should have elements that are not undefined.");
-				  test.todo("Should consist of 2 elements.");
-				  test.todo("Should have each element typed as number.");
+				  test("Should not be undefined.", () => {
+					 expect(vec2D).toBeDefined();
+				  });
+				  test("Should have elements that are not undefined.", () => {
+					 for(const idx of [0, 1]) {
+                        const whichElement = newVec2D.at(idx);
+                        expect(whichElement).toBeDefined();
+                     }
+				  });
+				  test("Should consist of 2 elements.", () => {
+					 expect(newVec2DSize).toBe(N);
+				  });
+				  test("Should have each element typed as number.", () => {
+					 for(const idx of [0, 1]) {
+						 const whichElement = newVec2D.at(idx);
+                         expect(whichElement).toEqual(expect.any(Number));
+                     }
+				  });
 			   });
 			   describe("Element Indexed", () => {
-				  test.todo("Should have elements all less than 1.");
-				  test.todo("Should consist of elements that sum to 1.");
+				  test("Should have elements all less than or equal to '1'.", () => {
+					 for(const idx of [0, 1]) {
+                        const whichElement = newVec2D.at(idx);
+                        expect(whichElement).toBeLessThanOrEqual(1);
+                     }
+				  });
+				  test("Should have a length of 1.", () => {
+					 const length = newVec2D.length;
+					 expect(length).toBeCloseTo(1, 1);
+				  });
 			   });
 			});
 			describe("Scale", () => {
 			   let scaleFactor: number;
 			   beforeAll(() => {
+				  scaleFactor = 2;
 				  newVec2D = vec2D.scale(scaleFactor);
 			   });
 			   describe("Set", () => {

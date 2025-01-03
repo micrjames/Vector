@@ -57,9 +57,13 @@ export class VectorND {
 	  return newVector;
    }
 
-   normalize(): VectorND {
+   get length(): number {
 	  const length_squared = this._vec.map(els => els ** 2).reduce((sum, curr) => sum + curr);
-	  const length =  Math.sqrt(length_squared);
+	  return  Math.sqrt(length_squared);
+   }
+
+   normalize(): VectorND {
+	  const length =  this.length;
 	  const normedVector = new VectorND(this.N);
 
 	  const range = new Range(this.N);
@@ -71,16 +75,21 @@ export class VectorND {
 	  return normedVector;
    }
 
-   scale(scale: number): VectorND {
-	  return new VectorND(this.N);
+   scale(factor: number): VectorND {
+	  const scaledVector = new VectorND(this.N);
+	  const normedVector = this.normalize();
+
+	  const range = new Range(this.N);
+	  let vecValueArr: number[] = [];
+	  for(const idx of [...range])
+		 vecValueArr.push(factor * normedVector.at(idx));
+	  scaledVector.values = vecValueArr;
+
+	  return scaledVector;
    }
 
    negate(): VectorND {
-	  return new VectorND(this.N);
-   }
-
-   private operateOnAllValues(operation: (val: number, index: number) => number): VectorND {
-	  return new VectorND(this.N);
+	  return this.scale(-1);
    }
 
    toString(): String {
