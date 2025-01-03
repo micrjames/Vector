@@ -266,16 +266,40 @@ describe("A Vector", () => {
 			describe("Negate", () => {
 			   beforeAll(() => {
 				  newVec2D = vec2D.negate();
+				  newVec2DSize = newVec2D.N;
 			   });
 			   describe("Set", () => {
-				  test.todo("Should not be undefined.");
-				  test.todo("Should have elements that are not undefined.");
-				  test.todo("Should consist of 3 elements.");
-				  test.todo("Should have each element typed as number.");
+				  test("Should not be undefined.", () => {
+					 expect(newVec2D).toBeDefined();
+				  });
+				  test("Should have elements that are not undefined.", () => {
+					 for(const idx of [0, 1]) {
+						const whichElement = newVec2D.at(idx);
+                        expect(whichElement).toBeDefined();
+                     }
+				  });
+				  test("Should consist of 2 elements.", () => {
+					 expect(newVec2DSize).toBe(N);
+				  });
+				  test("Should have each element typed as number.", () => {
+					 for(const idx of [0, 1]) {
+                        const whichElement = newVec2D.at(idx);
+                        expect(whichElement).toEqual(expect.any(Number));
+                     }
+				  });
 			   });
 			   describe("Element Indexed", () => {
-				  test.todo("Should not equal to previous 'vector'.");
-				  test.todo("Should consist of elements that are '-1' multiple of the previous 'vector'.");
+				  test("Should not equal to previous 'vector'.", () => {
+					 expect(newVec2D.toString()).not.toBe(vec2D.toString());
+				  });
+				  test("Should consist of elements that are '-1' multiple of the length of the previous 'vector'.", () => {
+					 for(const idx of [0, 1]) {
+						const whichElement = newVec2D.at(idx);
+						const whichPrevElement = vec2D.normalize().at(idx);
+						const negatedPrevElement = -1 * whichPrevElement;
+                        expect(whichElement).toBe(negatedPrevElement);
+                     }
+				  });
 			   });
 			});
 		 });
