@@ -376,6 +376,17 @@ describe("A Vector", () => {
 			   });
 			   describe("Scalar Component", () => {
 				  describe("Operation", () => {
+					 describe("Performed", () => {
+						test.todo("Should have a value that is not undefined.");
+						test.todo("Should consist of a single value.");
+						test.todo("Should have that value typed as number.");
+					 });
+					 describe("Element Indexed", () => {
+						test.todo("Should not be perpendicular.");
+						test.todo("Should not be greater than perpendicular.");
+						test.todo("Should be the 'dot product' of the 'vector' and the other 'unit vector'.");
+						test.todo("Should be the 'scalar component' of the 'vector'.");
+					 });
 				  });
 			   });
 			   describe("Cross Product", () => {
