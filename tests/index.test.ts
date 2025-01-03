@@ -183,122 +183,176 @@ describe("A Vector", () => {
 			   });
 			});
 		 });
-		 describe("By Operations from Non-All Zero Values", () => {
+		 describe("By Operation from Non-All Zero Values", () => {
 			let newVec2D: VectorND;
 			let newVec2DSize: number;
-			describe("Normalize", () => {
-			   beforeAll(() => {
-				  newVec2D = vec2D.normalize();
-				  newVec2DSize = newVec2D.N;
+			describe("Unary Operations", () => {
+			   describe("Normalize", () => {
+				  beforeAll(() => {
+					 newVec2D = vec2D.normalize();
+					 newVec2DSize = newVec2D.N;
+				  });
+				  describe("Set", () => {
+					 test("Should not be undefined.", () => {
+						expect(vec2D).toBeDefined();
+					 });
+					 test("Should have elements that are not undefined.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = newVec2D.at(idx);
+						   expect(whichElement).toBeDefined();
+						}
+					 });
+					 test("Should consist of 2 elements.", () => {
+						expect(newVec2DSize).toBe(N);
+					 });
+					 test("Should have each element typed as number.", () => {
+						for(const idx of [0, 1]) {
+							const whichElement = newVec2D.at(idx);
+							expect(whichElement).toEqual(expect.any(Number));
+						}
+					 });
+				  });
+				  describe("Element Indexed", () => {
+					 test("Should have elements all less than or equal to '1'.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = newVec2D.at(idx);
+						   expect(whichElement).toBeLessThanOrEqual(1);
+						}
+					 });
+					 test("Should have a length of '1'.", () => {
+						const expectedLength = 1;
+						const length = newVec2D.length;
+						expect(length).toBeCloseTo(expectedLength, 1);
+					 });
+				  });
 			   });
-			   describe("Set", () => {
-				  test("Should not be undefined.", () => {
-					 expect(vec2D).toBeDefined();
+			   describe("Scale", () => {
+				  let scaleFactor: number;
+				  beforeAll(() => {
+					 scaleFactor = 2;
+					 newVec2D = vec2D.scale(scaleFactor);
+					 newVec2DSize = newVec2D.N;
 				  });
-				  test("Should have elements that are not undefined.", () => {
-					 for(const idx of [0, 1]) {
-                        const whichElement = newVec2D.at(idx);
-                        expect(whichElement).toBeDefined();
-                     }
+				  describe("Set", () => {
+					 test("Should not be undefined.", () => {
+						expect(newVec2D).toBeDefined();
+					 });
+					 test("Should have elements that are not undefined.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = newVec2D.at(idx);
+						   expect(whichElement).toBeDefined();
+						}
+					 });
+					 test("Should consist of 2 elements.", () => {
+						expect(newVec2DSize).toBe(N);
+					 });
+					 test("Should have each element typed as number.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = newVec2D.at(idx);
+						   expect(whichElement).toEqual(expect.any(Number));
+						}
+					 });
 				  });
-				  test("Should consist of 2 elements.", () => {
-					 expect(newVec2DSize).toBe(N);
-				  });
-				  test("Should have each element typed as number.", () => {
-					 for(const idx of [0, 1]) {
-						 const whichElement = newVec2D.at(idx);
-                         expect(whichElement).toEqual(expect.any(Number));
-                     }
+				  describe("Element Indexed", () => {
+					 test("Should not equal to previous 'vector'.", () => {
+						expect(newVec2D.toString()).not.toBe(vec2D.toString());
+					 });
+					 test("Should have a length of '2'.", () => {
+						const expectedLength = 2;
+						const length = newVec2D.length;
+						expect(length).toBeCloseTo(expectedLength, 1);
+					 });
 				  });
 			   });
-			   describe("Element Indexed", () => {
-				  test("Should have elements all less than or equal to '1'.", () => {
-					 for(const idx of [0, 1]) {
-                        const whichElement = newVec2D.at(idx);
-                        expect(whichElement).toBeLessThanOrEqual(1);
-                     }
+			   describe("Negate", () => {
+				  beforeAll(() => {
+					 newVec2D = vec2D.negate();
+					 newVec2DSize = newVec2D.N;
 				  });
-				  test("Should have a length of '1'.", () => {
-					 const expectedLength = 1;
-					 const length = newVec2D.length;
-					 expect(length).toBeCloseTo(expectedLength, 1);
+				  describe("Set", () => {
+					 test("Should not be undefined.", () => {
+						expect(newVec2D).toBeDefined();
+					 });
+					 test("Should have elements that are not undefined.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = newVec2D.at(idx);
+						   expect(whichElement).toBeDefined();
+						}
+					 });
+					 test("Should consist of 2 elements.", () => {
+						expect(newVec2DSize).toBe(N);
+					 });
+					 test("Should have each element typed as number.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = newVec2D.at(idx);
+						   expect(whichElement).toEqual(expect.any(Number));
+						}
+					 });
+				  });
+				  describe("Element Indexed", () => {
+					 test("Should not equal to previous 'vector'.", () => {
+						expect(newVec2D.toString()).not.toBe(vec2D.toString());
+					 });
+					 test("Should consist of elements that are '-1' multiple of the length of the previous 'vector'.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = newVec2D.at(idx);
+						   const whichPrevElement = vec2D.normalize().at(idx);
+						   const negatedPrevElement = -1 * whichPrevElement;
+						   expect(whichElement).toBe(negatedPrevElement);
+						}
+					 });
 				  });
 			   });
 			});
-			describe("Scale", () => {
-			   let scaleFactor: number;
-			   beforeAll(() => {
-				  scaleFactor = 2;
-				  newVec2D = vec2D.scale(scaleFactor);
-				  newVec2DSize = newVec2D.N;
-			   });
-			   describe("Set", () => {
-				  test("Should not be undefined.", () => {
-					 expect(newVec2D).toBeDefined();
+			describe("Binary Operations", () => {
+			   describe("Combinations", () => {
+				  beforeAll(() => {
 				  });
-				  test("Should have elements that are not undefined.", () => {
-					 for(const idx of [0, 1]) {
-						const whichElement = newVec2D.at(idx);
-                        expect(whichElement).toBeDefined();
-                     }
+				  describe("Addition", () => {
+					 describe("Performed", () => {
+						test.todo("Should not be undefined.");
+						test.todo("Should have elements that are not undefined.");
+						test.todo("Should consist of 2 elements.");
+						test.todo("Should have each element typed as number.");
+					 });
+					 describe("Element Indexed", () => {
+						test.todo("Should not equal to either of the previous 'vector's.");
+						test.todo("Should consist of elements that are the sum of the previous 'vector's elements.");
+					 });
 				  });
-				  test("Should consist of 2 elements.", () => {
-					 expect(newVec2DSize).toBe(N);
-				  });
-				  test("Should have each element typed as number.", () => {
-					 for(const idx of [0, 1]) {
-                        const whichElement = newVec2D.at(idx);
-                        expect(whichElement).toEqual(expect.any(Number));
-                     }
-				  });
-			   });
-			   describe("Element Indexed", () => {
-				  test("Should not equal to previous 'vector'.", () => {
-					 expect(newVec2D.toString()).not.toBe(vec2D.toString());
-				  });
-				  test("Should have a length of '2'.", () => {
-					 const expectedLength = 2;
-					 const length = newVec2D.length;
-					 expect(length).toBeCloseTo(expectedLength, 1);
+				  describe("Subtraction", () => {
+					 describe("Performed", () => {
+						test.todo("Should not be undefined.");
+						test.todo("Should have elements that are not undefined.");
+						test.todo("Should consist of 2 elements.");
+						test.todo("Should have each element typed as number.");
+					 });
+					 describe("Element Indexed", () => {
+						test.todo("Should not equal to either of the previous 'vector's.");
+						test.todo("Should consist of elements that are the difference of the previous 'vector's elements.");
+					 });
 				  });
 			   });
-			});
-			describe("Negate", () => {
-			   beforeAll(() => {
-				  newVec2D = vec2D.negate();
-				  newVec2DSize = newVec2D.N;
-			   });
-			   describe("Set", () => {
-				  test("Should not be undefined.", () => {
-					 expect(newVec2D).toBeDefined();
+			   describe("Dot Product", () => {
+				  describe("Operation", () => {
 				  });
-				  test("Should have elements that are not undefined.", () => {
-					 for(const idx of [0, 1]) {
-						const whichElement = newVec2D.at(idx);
-                        expect(whichElement).toBeDefined();
-                     }
+				  describe("Angle Between", () => {
 				  });
-				  test("Should consist of 2 elements.", () => {
-					 expect(newVec2DSize).toBe(N);
-				  });
-				  test("Should have each element typed as number.", () => {
-					 for(const idx of [0, 1]) {
-                        const whichElement = newVec2D.at(idx);
-                        expect(whichElement).toEqual(expect.any(Number));
-                     }
+				  describe("Relative Location", () => {
 				  });
 			   });
-			   describe("Element Indexed", () => {
-				  test("Should not equal to previous 'vector'.", () => {
-					 expect(newVec2D.toString()).not.toBe(vec2D.toString());
+			   describe("Scalar Component", () => {
+				  describe("Operation", () => {
 				  });
-				  test("Should consist of elements that are '-1' multiple of the length of the previous 'vector'.", () => {
-					 for(const idx of [0, 1]) {
-						const whichElement = newVec2D.at(idx);
-						const whichPrevElement = vec2D.normalize().at(idx);
-						const negatedPrevElement = -1 * whichPrevElement;
-                        expect(whichElement).toBe(negatedPrevElement);
-                     }
+			   });
+			   describe("Cross Product", () => {
+				  describe("Operation", () => {
+				  });
+				  describe("Angle Between", () => {
+				  });
+				  describe("Direction", () => {
+				  });
+				  describe("Area", () => {
 				  });
 			   });
 			});
