@@ -391,12 +391,33 @@ describe("A Vector", () => {
 			   });
 			   describe("Cross Product", () => {
 				  describe("Operation", () => {
+					 describe("Performed", () => {
+						test.todo("Should not be undefined.");
+						test.todo("Should have elements that are not undefined.");
+						test.todo("Should consist of 3 elements.");
+						test.todo("Should have each element typed as number.");
+					 });
+					 describe("Calculated Value", () => {
+						test.todo("Should be greater than the sum of any summed element of the 'vector's.");
+						test.todo("Should have each addend as the determinant of the other column of the constructed '3 x 3' matrix' of the vectors.");
+						test.todo("Should be the 'cross product'.");
+					 });
 				  });
-				  describe("Angle Between", () => {
-				  });
-				  describe("Direction", () => {
-				  });
-				  describe("Area", () => {
+				  describe("The Vector", () => {
+					 describe("Angle Between", () => {
+						test.todo("Should not be perpendicular.");
+						test.todo("Should not be greater than a straight angle.");
+						test.todo("Should be the 'arcsine' of the 'cross product' divided by the product of the 'vector's magnitudes.");
+						test.todo("Should be the 'angle between' the 'vector's.");
+					 });
+					 describe("Direction", () => {
+						test.todo("Should be perpendicular to each of the previous 'vector's.");
+						test.todo("Should be the direction of the 'unit vector' of the 'cross product'.");
+					 });
+					 describe("Magnitude", () => {
+						test.todo("Should be greater than both the magnitudes of each 'vector'.");
+						test.todo("Should be equal to the area of the 'parallelgram' determined by the 'vector's.");
+					 });
 				  });
 			   });
 			});
