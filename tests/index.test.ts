@@ -334,11 +334,44 @@ describe("A Vector", () => {
 				  });
 			   });
 			   describe("Dot Product", () => {
+				  beforeAll(() => {
+				  });
 				  describe("Operation", () => {
+					 describe("Performed", () => {
+						test.todo("Should have a value that is not undefined.");
+						test.todo("Should consist of a single value.");
+						test.todo("Should have that value typed as number.");
+					 });
+					 describe("Calculated Value", () => {
+						test.todo("Should be greater than the sum of any summed element of the 'vector's.");
+						test.todo("Should have each addend as the product of each element of the 'vector's.");
+						test.todo("Should be the 'dot product'.");
+					 });
 				  });
 				  describe("Angle Between", () => {
+					 describe("Performed", () => {
+						test.todo("Should have a value that is not undefined.");
+						test.todo("Should consist of a single value.");
+						test.todo("Should have that value typed as number.");
+					 });
+					 describe("Element Indexed", () => {
+						test.todo("Should not be perpendicular.");
+						test.todo("Should not be greater than a straight angle.");
+						test.todo("Should be the 'arccosine' of the 'dot product' divided by the product of the 'vector's magnitudes.");
+						test.todo("Should be the 'angle between' the 'vector's.");
+					 });
 				  });
 				  describe("Relative Location", () => {
+					 describe("Performed", () => {
+						test.todo("Should have a value that is not undefined.");
+						test.todo("Should consist of a single value.");
+						test.todo("Should have that value typed as boolean.");
+					 });
+					 describe("Element Indexed", () => {
+						test.todo("Should not be at the same location.");
+						test.todo("Should either be 'in front of' or 'behind' another vector.");
+						test.todo("Should either be 'in front of' another vector or not.");
+					 });
 				  });
 			   });
 			   describe("Scalar Component", () => {
