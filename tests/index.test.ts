@@ -218,9 +218,10 @@ describe("A Vector", () => {
                         expect(whichElement).toBeLessThanOrEqual(1);
                      }
 				  });
-				  test("Should have a length of 1.", () => {
+				  test("Should have a length of '1'.", () => {
+					 const expectedLength = 1;
 					 const length = newVec2D.length;
-					 expect(length).toBeCloseTo(1, 1);
+					 expect(length).toBeCloseTo(expectedLength, 1);
 				  });
 			   });
 			});
@@ -229,16 +230,37 @@ describe("A Vector", () => {
 			   beforeAll(() => {
 				  scaleFactor = 2;
 				  newVec2D = vec2D.scale(scaleFactor);
+				  newVec2DSize = newVec2D.N;
 			   });
 			   describe("Set", () => {
-				  test.todo("Should not be undefined.");
-				  test.todo("Should have elements that are not undefined.");
-				  test.todo("Should consist of 3 elements.");
-				  test.todo("Should have each element typed as number.");
+				  test("Should not be undefined.", () => {
+					 expect(newVec2D).toBeDefined();
+				  });
+				  test("Should have elements that are not undefined.", () => {
+					 for(const idx of [0, 1]) {
+						const whichElement = newVec2D.at(idx);
+                        expect(whichElement).toBeDefined();
+                     }
+				  });
+				  test("Should consist of 2 elements.", () => {
+					 expect(newVec2DSize).toBe(N);
+				  });
+				  test("Should have each element typed as number.", () => {
+					 for(const idx of [0, 1]) {
+                        const whichElement = newVec2D.at(idx);
+                        expect(whichElement).toEqual(expect.any(Number));
+                     }
+				  });
 			   });
 			   describe("Element Indexed", () => {
-				  test.todo("Should not equal to previous 'vector'.");
-				  test.todo("Should consist of elements that are 'scaleFactor' multiple of the previous 'vector'.");
+				  test("Should not equal to previous 'vector'.", () => {
+					 expect(newVec2D.toString()).not.toBe(vec2D.toString());
+				  });
+				  test("Should have a length of '2'.", () => {
+					 const expectedLength = 2;
+					 const length = newVec2D.length;
+					 expect(length).toBeCloseTo(expectedLength, 1);
+				  });
 			   });
 			});
 			describe("Negate", () => {
