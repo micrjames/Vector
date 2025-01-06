@@ -12,63 +12,69 @@ describe("A Vector", () => {
    });
    describe("Created and", () => {
 	  describe("Implemented initially with all zeroes.", () => {
-		 test("Should not be undefined.", () => {
-			expect(vec2D).toBeDefined();
-		 });
-		 test("Should have elements that are not undefined.", () => {
-			for(const idx of [0, 1]) {
-			   const whichElement = vec2D.at(idx);
-			   expect(whichElement).toBeDefined();
-			}
-		 });
-		 test("Should consist of 2 elements.", () => {
-			expect(vec2DSize).toBe(N);
-		 });
-		 test("Should have each element typed as number.", () => {
-			for(const idx of [0, 1]) {
-			   const whichElement = vec2D.at(idx);
-			   expect(whichElement).toEqual(expect.any(Number));
-			}
-		 });
-	  });
-	  describe("An Element Indexed", () => {
-		 describe("Within Range", () => {
-			test("Should have a 'zero' as the first element.", () => {
-			   let elementIdx: number;
-			   const element = elementIdx = 0;
-			   const isZero1stElement = vec2D.indexOf(element) === elementIdx;
-			   expect(isZero1stElement).toBeTruthy();
+		 describe("It", () => {
+			test("Should not be undefined.", () => {
+			   expect(vec2D).toBeDefined();
 			});
-			test("Should consist of a two element set of all zeros.", () => {
-			   const element = 0;
-			   let vec2DArr: number[] = [];
+			test.todo("Should have a direction of '0'.");
+			test.todo("Should have a 'magnitude' of '0'.");
+		 });
+		 describe("Its elements", () => {
+			test("Should have elements that are not undefined.", () => {
 			   for(const idx of [0, 1]) {
 				  const whichElement = vec2D.at(idx);
-				  if(whichElement === element) vec2DArr.push(element);
+				  expect(whichElement).toBeDefined();
 			   }
-			   expect(vec2DArr).toHaveLength(vec2DSize);
+			});
+			test("Should consist of 2 elements.", () => {
+			   expect(vec2DSize).toBe(N);
+			});
+			test("Should have each element typed as number.", () => {
+			   for(const idx of [0, 1]) {
+				  const whichElement = vec2D.at(idx);
+				  expect(whichElement).toEqual(expect.any(Number));
+			   }
 			});
 		 });
-		 describe("Outside of Range", () => {
-			let index: number;
-			describe("Before the Range", () => {
-			   beforeAll(() => {
-				  index = -1;
-			   });
-			   test("Should Throw the Error.", () => {
-				  expect(() => {
-					 vec2D.at(index)
-				  }).toThrow("Index Out of Range");
-			   });
+		 describe("An Element Indexed", () => {
+			describe("Within Range", () => {
+				  test("Should have a 'zero' as the first element.", () => {
+					 let elementIdx: number;
+					 const element = elementIdx = 0;
+					 const isZero1stElement = vec2D.indexOf(element) === elementIdx;
+					 expect(isZero1stElement).toBeTruthy();
+				  });
+				  test("Should consist of a two element set of all zeros.", () => {
+					 const element = 0;
+					 let vec2DArr: number[] = [];
+					 for(const idx of [0, 1]) {
+						const whichElement = vec2D.at(idx);
+						if(whichElement === element) vec2DArr.push(element);
+					 }
+					 expect(vec2DArr).toHaveLength(vec2DSize);
+				  });
 			});
-			describe("After the Range", () => {
-			   beforeAll(() => {
-				  index = N+1;
+			describe("Outside of Range", () => {
+			   let index: number;
+			   describe("Before the Range", () => {
+				  beforeAll(() => {
+					 index = -1;
+				  });
+				  test("Should Throw the Error.", () => {
+					 expect(() => {
+						vec2D.at(index)
+					 }).toThrow("Index Out of Range");
+				  });
 			   });
-			   test("Should Throw the Error.", () => {
-				  expect(() => {
-					 vec2D.at(index)
-				  }).toThrow("Index Out of Range");
+			   describe("After the Range", () => {
+				  beforeAll(() => {
+					 index = N+1;
+				  });
+				  test("Should Throw the Error.", () => {
+					 expect(() => {
+						vec2D.at(index)
+					 }).toThrow("Index Out of Range");
+				  });
 			   });
 			});
 		 });
