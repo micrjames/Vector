@@ -88,23 +88,30 @@ describe("A Vector", () => {
 				  vec2D.values = newValues;
 			   });
 			   describe("Set", () => {
-				  test("Should not be undefined.", () => {
-					 expect(vec2D).toBeDefined();
+				  describe("It", () => {
+					 test("Should not be undefined.", () => {
+						expect(vec2D).toBeDefined();
+					 });
+					 // TODO: fix values on direction & magnitude.
+					 test.todo("Should have a direction of '0'.");
+					 test.todo("Should have a 'magnitude' of '0'.");
 				  });
-				  test("Should have elements that are not undefined.", () => {
-					 for(const idx of [0, 1]) {
-						const whichElement = vec2D.at(idx);
-						expect(whichElement).toBeDefined();
-					 }
-				  });
-				  test("Should consist of 2 elements.", () => {
-					 expect(vec2DSize).toBe(N);
-				  });
-				  test("Should have each element typed as number.", () => {
-					 for(const idx of [0, 1]) {
-						const whichElement = vec2D.at(idx);
-						expect(whichElement).toEqual(expect.any(Number));
-					 }
+				  describe("Its elements", () => {
+					 test("Should have elements that are not undefined.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = vec2D.at(idx);
+						   expect(whichElement).toBeDefined();
+						}
+					 });
+					 test("Should consist of 2 elements.", () => {
+						expect(vec2DSize).toBe(N);
+					 });
+					 test("Should have each element typed as number.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = vec2D.at(idx);
+						   expect(whichElement).toEqual(expect.any(Number));
+						}
+					 });
 				  });
 			   });
 			   describe("Elements Indexed", () => {
@@ -147,23 +154,30 @@ describe("A Vector", () => {
 				  newVec2DSize = newVec2D.N;
 			   });
 			   describe("Set", () => {
-				  test("Should not be undefined.", () => {
-					 expect(newVec2D).toBeDefined();
+				  describe("It", () => {
+					 test("Should not be undefined.", () => {
+						expect(newVec2D).toBeDefined();
+					 });
+					 // TODO: fix values on direction & magnitude.
+					 test.todo("Should have a direction of '0'.");
+					 test.todo("Should have a 'magnitude' of '0'.");
 				  });
-				  test("Should have elements that are not undefined.", () => {
-					 for(const idx of [0, 1]) {
-						const whichElement = newVec2D.at(idx);
-						expect(whichElement).toBeDefined();
-					 }
-				  });
-				  test("Should consist of 1 more element.", () => {
-					 expect(newVec2DSize).toBe(N+1);
-				  });
-				  test("Should have each element typed as number.", () => {
-					 for(const idx of [0, 1]) {
-						const whichElement = newVec2D.at(idx);
-						expect(whichElement).toEqual(expect.any(Number));
-					 }
+				  describe("Its elements", () => {
+					 test("Should have elements that are not undefined.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = newVec2D.at(idx);
+						   expect(whichElement).toBeDefined();
+						}
+					 });
+					 test("Should consist of 1 more element.", () => {
+						expect(newVec2DSize).toBe(N+1);
+					 });
+					 test("Should have each element typed as number.", () => {
+						for(const idx of [0, 1]) {
+						   const whichElement = newVec2D.at(idx);
+						   expect(whichElement).toEqual(expect.any(Number));
+						}
+					 });
 				  });
 			   });
 			   describe("Element Indexed", () => {
