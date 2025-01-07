@@ -203,6 +203,7 @@ describe("A Vector", () => {
 			   });
 			});
 		 });
+		 // TODO: continue below with changes from above.
 		 describe("By Operation from Non-All Zero Values", () => {
 			let newVec2D: VectorND;
 			let newVec2DSize: number;
