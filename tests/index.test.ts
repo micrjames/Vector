@@ -13,16 +13,29 @@ describe("A Vector", () => {
    describe("Created and", () => {
 	  describe("Implemented initially with all zeroes.", () => {
 		 describe("It", () => {
+			let zero: number;
+			let direction: number;
+			let magnitude: number;
+			beforeAll(() => {
+			   zero = 0;
+			   direction = vec2D.direction;
+			   magnitude = vec2D.length;
+			});
 			test("Should not be undefined.", () => {
 			   expect(vec2D).toBeDefined();
 			});
-			test.todo("Should have a direction of '0'.");
-			test.todo("Should have a 'magnitude' of '0'.");
+			test("Should have a direction of '0'.", () => {
+			   expect(direction).toBe(zero);
+			});
+			test("Should have a 'magnitude' of '0'.", () => {
+			   expect(magnitude).toBe(zero);
+			});
 		 });
 		 describe("Its elements", () => {
+			let whichElement: number;
 			test("Should have elements that are not undefined.", () => {
 			   for(const idx of [0, 1]) {
-				  const whichElement = vec2D.at(idx);
+				  whichElement = vec2D.at(idx);
 				  expect(whichElement).toBeDefined();
 			   }
 			});
@@ -31,21 +44,22 @@ describe("A Vector", () => {
 			});
 			test("Should have each element typed as number.", () => {
 			   for(const idx of [0, 1]) {
-				  const whichElement = vec2D.at(idx);
+				  whichElement = vec2D.at(idx);
 				  expect(whichElement).toEqual(expect.any(Number));
 			   }
 			});
 		 });
 		 describe("An Element Indexed", () => {
 			describe("Within Range", () => {
+				  let element: number;
 				  test("Should have a 'zero' as the first element.", () => {
 					 let elementIdx: number;
-					 const element = elementIdx = 0;
+					 element = elementIdx = 0;
 					 const isZero1stElement = vec2D.indexOf(element) === elementIdx;
 					 expect(isZero1stElement).toBeTruthy();
 				  });
 				  test("Should consist of a two element set of all zeros.", () => {
-					 const element = 0;
+					 element = 0;
 					 let vec2DArr: number[] = [];
 					 for(const idx of [0, 1]) {
 						const whichElement = vec2D.at(idx);
@@ -92,9 +106,16 @@ describe("A Vector", () => {
 					 test("Should not be undefined.", () => {
 						expect(vec2D).toBeDefined();
 					 });
-					 // TODO: fix values on direction & magnitude.
-					 test.todo("Should have a direction of '0'.");
-					 test.todo("Should have a 'magnitude' of '0'.");
+					 test("Should have a direction of 'ᴨ/4' radians.", () => {
+						const direction = vec2D.direction;
+						const quarterPI = Math.PI/4;
+						expect(direction).toBe(quarterPI);
+					 });
+					 test("Should have a 'magnitude' of '√2'.", () => {
+						const magnitude = vec2D.length;
+						const sqrt2 = Math.sqrt(2);
+						expect(magnitude).toBe(sqrt2);
+					 });
 				  });
 				  describe("Its elements", () => {
 					 test("Should have elements that are not undefined.", () => {

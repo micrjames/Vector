@@ -57,6 +57,10 @@ export class VectorND {
 	  return newVector;
    }
 
+   get direction(): number {
+	  return Math.atan(this._vec[1]/this._vec[0]);
+   }
+
    get length(): number {
 	  const length_squared = this._vec.map(els => els ** 2).reduce((sum, curr) => sum + curr);
 	  return  Math.sqrt(length_squared);
