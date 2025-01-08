@@ -96,75 +96,290 @@ describe("A Vector", () => {
 	  describe("Values Altered", () => {
 		 describe("From the Initial Implementation", () => {
 			describe("With All New Values", () => {
-			   let newValues: number[];
-			   beforeAll(() => {
-				  newValues = [1, 1];
-				  vec2D.values = newValues;
-			   });
-			   describe("Set", () => {
-				  describe("It", () => {
-					 test("Should not be undefined.", () => {
-						expect(vec2D).toBeDefined();
+			   describe("In the First Quadrant", () => {
+				  let newValues: number[];
+				  beforeAll(() => {
+					 newValues = [1, 1];
+					 vec2D.values = newValues;
+				  });
+				  describe("Set", () => {
+					 describe("It", () => {
+						test("Should not be undefined.", () => {
+						   expect(vec2D).toBeDefined();
+						});
+						test("Should have a direction of 'ᴨ/4' radians.", () => {
+						   const direction = vec2D.direction;
+						   const quarterPI = Math.PI/4;
+						   expect(direction).toBe(quarterPI);
+						});
+						test("Should have a 'magnitude' of '√2'.", () => {
+						   const magnitude = vec2D.length;
+						   const sqrt2 = Math.sqrt(2);
+						   expect(magnitude).toBe(sqrt2);
+						});
 					 });
-					 test("Should have a direction of 'ᴨ/4' radians.", () => {
-						const direction = vec2D.direction;
-						const quarterPI = Math.PI/4;
-						expect(direction).toBe(quarterPI);
-					 });
-					 test("Should have a 'magnitude' of '√2'.", () => {
-						const magnitude = vec2D.length;
-						const sqrt2 = Math.sqrt(2);
-						expect(magnitude).toBe(sqrt2);
+					 describe("Its elements", () => {
+						test("Should have elements that are not undefined.", () => {
+						   for(const idx of [0, 1]) {
+							  const whichElement = vec2D.at(idx);
+							  expect(whichElement).toBeDefined();
+						   }
+						});
+						test("Should consist of 2 elements.", () => {
+						   expect(vec2DSize).toBe(N);
+						});
+						test("Should have each element typed as number.", () => {
+						   for(const idx of [0, 1]) {
+							  const whichElement = vec2D.at(idx);
+							  expect(whichElement).toEqual(expect.any(Number));
+						   }
+						});
 					 });
 				  });
-				  describe("Its elements", () => {
-					 test("Should have elements that are not undefined.", () => {
+				  describe("Elements Indexed", () => {
+					 test("Should have a 'one' as the first element.", () => {
+						const elementIdx = 0;
+						const element = 1;
+						const isOne1stElement = vec2D.indexOf(element) === elementIdx;
+						expect(isOne1stElement).toBeTruthy();
+					 });
+					 test("Should consist of a two element set of all ones.", () => {
+						const element = 1;
+						let vec2DArr: number[] = [];
 						for(const idx of [0, 1]) {
 						   const whichElement = vec2D.at(idx);
-						   expect(whichElement).toBeDefined();
+						   if(whichElement === element) vec2DArr.push(element);
 						}
+						expect(vec2DArr).toHaveLength(vec2DSize);
 					 });
-					 test("Should consist of 2 elements.", () => {
-						expect(vec2DSize).toBe(N);
+				  });
+				  describe("Too Many Elements", () => {
+					 describe("Before the Range", () => {
+						beforeAll(() => {
+						   newValues = [0, 0, 0];
+						});
+						test("Should Throw the Error.", () => {
+						   expect(() => {
+							  vec2D.values = newValues;
+						   }).toThrow("Too Many Elements in Vector");
+						});
 					 });
-					 test("Should have each element typed as number.", () => {
+				  });
+			   });
+			   describe("In the Second Quadrant", () => {
+				  let newValues: number[];
+				  beforeAll(() => {
+					 newValues = [-1, 1];
+					 vec2D.values = newValues;
+				  });
+				  describe("Set", () => {
+					 describe("It", () => {
+						test("Should not be undefined.", () => {
+						   expect(vec2D).toBeDefined();
+						});
+						test("Should have a direction of 'ᴨ - ᴨ/4 = 3 * ᴨ/4' radians.", () => {
+						   const direction = vec2D.direction;
+						   const three_quarterPI = 3 * Math.PI/4;
+						   expect(direction).toBe(three_quarterPI);
+						});
+						test("Should have a 'magnitude' of '√2'.", () => {
+						   const magnitude = vec2D.length;
+						   const sqrt2 = Math.sqrt(2);
+						   expect(magnitude).toBe(sqrt2);
+						});
+					 });
+					 describe("Its elements", () => {
+						test("Should have elements that are not undefined.", () => {
+						   for(const idx of [0, 1]) {
+							  const whichElement = vec2D.at(idx);
+							  expect(whichElement).toBeDefined();
+						   }
+						});
+						test("Should consist of 2 elements.", () => {
+						   expect(vec2DSize).toBe(N);
+						});
+						test("Should have each element typed as number.", () => {
+						   for(const idx of [0, 1]) {
+							  const whichElement = vec2D.at(idx);
+							  expect(whichElement).toEqual(expect.any(Number));
+						   }
+						});
+					 });
+				  });
+				  describe("Elements Indexed", () => {
+					 test("Should have a 'negative one' as the first element.", () => {
+						const elementIdx = 0;
+						const element = -1;
+						const isOne1stElement = vec2D.indexOf(element) === elementIdx;
+						expect(isOne1stElement).toBeTruthy();
+					 });
+					 // TODO: [-1, 1] not [1, 1]
+					 test("Should consist of a two element set of all ones.", () => {
+						const element = 1;
+						let vec2DArr: number[] = [];
 						for(const idx of [0, 1]) {
 						   const whichElement = vec2D.at(idx);
-						   expect(whichElement).toEqual(expect.any(Number));
+						   if(whichElement === element) vec2DArr.push(element);
 						}
+						expect(vec2DArr).toHaveLength(vec2DSize);
+					 });
+				  });
+				  describe("Too Many Elements", () => {
+					 describe("Before the Range", () => {
+						beforeAll(() => {
+						   newValues = [0, 0, 0];
+						});
+						test("Should Throw the Error.", () => {
+						   expect(() => {
+							  vec2D.values = newValues;
+						   }).toThrow("Too Many Elements in Vector");
+						});
 					 });
 				  });
 			   });
-			   describe("Elements Indexed", () => {
-				  test("Should have a 'one' as the first element.", () => {
-					 const elementIdx = 0;
-					 const element = 1;
-					 const isOne1stElement = vec2D.indexOf(element) === elementIdx;
-					 expect(isOne1stElement).toBeTruthy();
+			   describe("In the Third Quadrant", () => {
+				  let newValues: number[];
+				  beforeAll(() => {
+					 newValues = [-1, -1];
+					 vec2D.values = newValues;
 				  });
-				  test("Should consist of a two element set of all ones.", () => {
-					 const element = 1;
-					 let vec2DArr: number[] = [];
-					 for(const idx of [0, 1]) {
-						const whichElement = vec2D.at(idx);
-						if(whichElement === element) vec2DArr.push(element);
-					 }
-					 expect(vec2DArr).toHaveLength(vec2DSize);
+				  describe("Set", () => {
+					 describe("It", () => {
+						test("Should not be undefined.", () => {
+						   expect(vec2D).toBeDefined();
+						});
+						test("Should have a direction of 'ᴨ + ᴨ/4 = 5ᴨ/4' radians.", () => {
+						   const direction = vec2D.direction;
+						   const five_quarterPI = 5 * Math.PI/4;
+						   expect(direction).toBe(five_quarterPI);
+						});
+						test("Should have a 'magnitude' of '√2'.", () => {
+						   const magnitude = vec2D.length;
+						   const sqrt2 = Math.sqrt(2);
+						   expect(magnitude).toBe(sqrt2);
+						});
+					 });
+					 describe("Its elements", () => {
+						test("Should have elements that are not undefined.", () => {
+						   for(const idx of [0, 1]) {
+							  const whichElement = vec2D.at(idx);
+							  expect(whichElement).toBeDefined();
+						   }
+						});
+						test("Should consist of 2 elements.", () => {
+						   expect(vec2DSize).toBe(N);
+						});
+						test("Should have each element typed as number.", () => {
+						   for(const idx of [0, 1]) {
+							  const whichElement = vec2D.at(idx);
+							  expect(whichElement).toEqual(expect.any(Number));
+						   }
+						});
+					 });
+				  });
+				  describe("Elements Indexed", () => {
+					 test("Should have a 'negative one' as the first element.", () => {
+						const elementIdx = 0;
+						const element = -1;
+						const isOne1stElement = vec2D.indexOf(element) === elementIdx;
+						expect(isOne1stElement).toBeTruthy();
+					 });
+					 test("Should consist of a two element set of all ones.", () => {
+						const element = -1;
+						let vec2DArr: number[] = [];
+						for(const idx of [0, 1]) {
+						   const whichElement = vec2D.at(idx);
+						   if(whichElement === element) vec2DArr.push(element);
+						}
+						expect(vec2DArr).toHaveLength(vec2DSize);
+					 });
+				  });
+				  describe("Too Many Elements", () => {
+					 describe("Before the Range", () => {
+						beforeAll(() => {
+						   newValues = [0, 0, 0];
+						});
+						test("Should Throw the Error.", () => {
+						   expect(() => {
+							  vec2D.values = newValues;
+						   }).toThrow("Too Many Elements in Vector");
+						});
+					 });
 				  });
 			   });
-			   describe("Too Many Elements", () => {
-				  describe("Before the Range", () => {
-					 beforeAll(() => {
-						newValues = [0, 0, 0];
+			   describe("In the Fourth Quadrant", () => {
+				  let newValues: number[];
+				  beforeAll(() => {
+					 newValues = [1, -1];
+					 vec2D.values = newValues;
+				  });
+				  describe("Set", () => {
+					 describe("It", () => {
+						test("Should not be undefined.", () => {
+						   expect(vec2D).toBeDefined();
+						});
+						test("Should have a direction of '2ᴨ - ᴨ/4 = 7ᴨ/4' radians.", () => {
+						   const direction = vec2D.direction;
+						   const seven_quarterPI = 9 * Math.PI/4;
+						   expect(direction).toBe(seven_quarterPI);
+						});
+						test("Should have a 'magnitude' of '√2'.", () => {
+						   const magnitude = vec2D.length;
+						   const sqrt2 = Math.sqrt(2);
+						   expect(magnitude).toBe(sqrt2);
+						});
 					 });
-					 test("Should Throw the Error.", () => {
-						expect(() => {
-						   vec2D.values = newValues;
-						}).toThrow("Too Many Elements in Vector");
+					 describe("Its elements", () => {
+						test("Should have elements that are not undefined.", () => {
+						   for(const idx of [0, 1]) {
+							  const whichElement = vec2D.at(idx);
+							  expect(whichElement).toBeDefined();
+						   }
+						});
+						test("Should consist of 2 elements.", () => {
+						   expect(vec2DSize).toBe(N);
+						});
+						test("Should have each element typed as number.", () => {
+						   for(const idx of [0, 1]) {
+							  const whichElement = vec2D.at(idx);
+							  expect(whichElement).toEqual(expect.any(Number));
+						   }
+						});
+					 });
+				  });
+				  describe("Elements Indexed", () => {
+					 test("Should have a 'one' as the first element.", () => {
+						const elementIdx = 0;
+						const element = 1;
+						const isOne1stElement = vec2D.indexOf(element) === elementIdx;
+						expect(isOne1stElement).toBeTruthy();
+					 });
+					 // TODO: [1, -1] not [1, 1]
+					 test("Should consist of a two element set of all ones.", () => {
+						const element = 1;
+						let vec2DArr: number[] = [];
+						for(const idx of [0, 1]) {
+						   const whichElement = vec2D.at(idx);
+						   if(whichElement === element) vec2DArr.push(element);
+						}
+						expect(vec2DArr).toHaveLength(vec2DSize);
+					 });
+				  });
+				  describe("Too Many Elements", () => {
+					 describe("Before the Range", () => {
+						beforeAll(() => {
+						   newValues = [0, 0, 0];
+						});
+						test("Should Throw the Error.", () => {
+						   expect(() => {
+							  vec2D.values = newValues;
+						   }).toThrow("Too Many Elements in Vector");
+						});
 					 });
 				  });
 			   });
 			});
+			// TODO: work on this section next.
 			describe("With New Value", () => {
 			   let newVec2D: VectorND;
 			   let newValue: number;
