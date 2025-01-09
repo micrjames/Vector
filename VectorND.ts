@@ -58,10 +58,13 @@ export class VectorND {
    }
 
    get direction(): number {
-	  return Math.atan(this._vec[1]/this._vec[0]);
+	  ɸ = Math.atan(this._vec[1]/this._vec[0]);
+	  ϑ = Math.acos(this._vec[2]/this.length);
+	  // 
    }
 
    get length(): number {
+	  // r.
 	  const length_squared = this._vec.map(els => els ** 2).reduce((sum, curr) => sum + curr);
 	  return  Math.sqrt(length_squared);
    }
