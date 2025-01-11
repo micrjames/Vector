@@ -64,7 +64,7 @@ export class VectorND {
 	  if (this._vec[0] == 0)
 		 throw Error("Zero Vector, No Direction");
 	  else
-		 phi = Math.atan(this._vec[1]/this._vec[0]);
+	     phi = Math.atan(this._vec[1]/this._vec[0]);
 	  theta = this.N == 2 ? theta : Math.acos(this._vec[2]/this.length);
 
 	  return [phi, theta];
