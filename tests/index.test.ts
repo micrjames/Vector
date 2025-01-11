@@ -1,31 +1,34 @@
 import { VectorND } from "../VectorND";
 import { Range } from "../Range/range";
+import { Utilities } from "../Utilities/Utilities";
 
 describe("A Vector", () => {
    let N: number;
    let vec2D: VectorND;
    let vec2DSize: number;
+   let utility: Utilities;
    beforeAll(() => {
 	  N = 2;
 	  vec2D = new VectorND(N);
 	  vec2DSize = vec2D.N;
+	  utility = new Utilities();
    });
    describe("Created and", () => {
 	  describe("Implemented initially with all zeroes.", () => {
 		 describe("It", () => {
 			let zero: number;
-			let direction: number;
 			let magnitude: number;
 			beforeAll(() => {
 			   zero = 0;
-			   direction = vec2D.direction;
 			   magnitude = vec2D.length;
 			});
 			test("Should not be undefined.", () => {
 			   expect(vec2D).toBeDefined();
 			});
-			test("Should have a direction of '0'.", () => {
-			   expect(direction).toBe(zero);
+			test("Should have 'No Direction'.", () => {
+			   expect(() => {
+				  vec2D.direction
+			   }).toThrow("Zero Vector, No Direction");
 			});
 			test("Should have a 'magnitude' of '0'.", () => {
 			   expect(magnitude).toBe(zero);
@@ -59,13 +62,11 @@ describe("A Vector", () => {
 					 expect(isZero1stElement).toBeTruthy();
 				  });
 				  test("Should consist of a two element set of all zeros.", () => {
-					 element = 0;
-					 let vec2DArr: number[] = [];
-					 for(const idx of [0, 1]) {
-						const whichElement = vec2D.at(idx);
-						if(whichElement === element) vec2DArr.push(element);
-					 }
-					 expect(vec2DArr).toHaveLength(vec2DSize);
+					 const numZeroes = 2;
+					 const vec2DArr = [0, 1].map((_, idx) => vec2D.at(idx));
+					 const countOccurrences = utility.utils.countOccurrences(vec2DArr);
+					 const vec2DArrConsists = Object.values(countOccurrences).every(val => val == numZeroes);
+					 expect(vec2DArrConsists).toBeTruthy();
 				  });
 			});
 			describe("Outside of Range", () => {
@@ -96,6 +97,12 @@ describe("A Vector", () => {
 	  describe("Values Altered", () => {
 		 describe("From the Initial Implementation", () => {
 			describe("With All New Values", () => {
+			   let quarterPI: number;
+			   let neg_quarterPI: number;
+			   beforeAll(() => {
+				  quarterPI = Math.PI/4;
+				  neg_quarterPI = -1 * quarterPI;
+			   });
 			   describe("In the First Quadrant", () => {
 				  let newValues: number[];
 				  beforeAll(() => {
@@ -108,8 +115,7 @@ describe("A Vector", () => {
 						   expect(vec2D).toBeDefined();
 						});
 						test("Should have a direction of 'ᴨ/4' radians.", () => {
-						   const direction = vec2D.direction;
-						   const quarterPI = Math.PI/4;
+						   const direction = vec2D.direction[0];
 						   expect(direction).toBe(quarterPI);
 						});
 						test("Should have a 'magnitude' of '√2'.", () => {
@@ -144,13 +150,11 @@ describe("A Vector", () => {
 						expect(isOne1stElement).toBeTruthy();
 					 });
 					 test("Should consist of a two element set of all ones.", () => {
-						const element = 1;
-						let vec2DArr: number[] = [];
-						for(const idx of [0, 1]) {
-						   const whichElement = vec2D.at(idx);
-						   if(whichElement === element) vec2DArr.push(element);
-						}
-						expect(vec2DArr).toHaveLength(vec2DSize);
+						const numOnes = 2;
+						const vec2DArr = [0, 1].map((_, idx) => vec2D.at(idx));
+						const countOccurrences = utility.utils.countOccurrences(vec2DArr);
+						const vec2DArrConsists = Object.values(countOccurrences).every(val => val == numOnes);
+						expect(vec2DArrConsists).toBeTruthy();
 					 });
 				  });
 				  describe("Too Many Elements", () => {
@@ -177,10 +181,9 @@ describe("A Vector", () => {
 						test("Should not be undefined.", () => {
 						   expect(vec2D).toBeDefined();
 						});
-						test("Should have a direction of 'ᴨ - ᴨ/4 = 3 * ᴨ/4' radians.", () => {
-						   const direction = vec2D.direction;
-						   const three_quarterPI = 3 * Math.PI/4;
-						   expect(direction).toBe(three_quarterPI);
+						test("Should have a direction of '-ᴨ/4' radians.", () => {
+						   const direction = vec2D.direction[0];
+						   expect(direction).toBe(neg_quarterPI);
 						});
 						test("Should have a 'magnitude' of '√2'.", () => {
 						   const magnitude = vec2D.length;
@@ -213,15 +216,12 @@ describe("A Vector", () => {
 						const isOne1stElement = vec2D.indexOf(element) === elementIdx;
 						expect(isOne1stElement).toBeTruthy();
 					 });
-					 // TODO: [-1, 1] not [1, 1]
-					 test("Should consist of a two element set of all ones.", () => {
-						const element = 1;
-						let vec2DArr: number[] = [];
-						for(const idx of [0, 1]) {
-						   const whichElement = vec2D.at(idx);
-						   if(whichElement === element) vec2DArr.push(element);
-						}
-						expect(vec2DArr).toHaveLength(vec2DSize);
+					 test("Should consist of a two element set of a one and a negative one.", () => {
+						const numEach = 1;
+						const vec2DArr = [0, 1].map((_, idx) => vec2D.at(idx));
+						const countOccurrences = utility.utils.countOccurrences(vec2DArr);
+						const vec2DArrConsists = Object.values(countOccurrences).every(val => val == numEach);
+						expect(vec2DArrConsists).toBeTruthy();
 					 });
 				  });
 				  describe("Too Many Elements", () => {
@@ -248,10 +248,9 @@ describe("A Vector", () => {
 						test("Should not be undefined.", () => {
 						   expect(vec2D).toBeDefined();
 						});
-						test("Should have a direction of 'ᴨ + ᴨ/4 = 5ᴨ/4' radians.", () => {
-						   const direction = vec2D.direction;
-						   const five_quarterPI = 5 * Math.PI/4;
-						   expect(direction).toBe(five_quarterPI);
+						test("Should have a direction of 'ᴨ/4' radians.", () => {
+						   const direction = vec2D.direction[0];
+						   expect(direction).toBe(quarterPI);
 						});
 						test("Should have a 'magnitude' of '√2'.", () => {
 						   const magnitude = vec2D.length;
@@ -284,14 +283,12 @@ describe("A Vector", () => {
 						const isOne1stElement = vec2D.indexOf(element) === elementIdx;
 						expect(isOne1stElement).toBeTruthy();
 					 });
-					 test("Should consist of a two element set of all ones.", () => {
-						const element = -1;
-						let vec2DArr: number[] = [];
-						for(const idx of [0, 1]) {
-						   const whichElement = vec2D.at(idx);
-						   if(whichElement === element) vec2DArr.push(element);
-						}
-						expect(vec2DArr).toHaveLength(vec2DSize);
+					 test("Should consist of a two element set of all negative  ones.", () => {
+						const numsOnes = 2;
+						const vec2DArr = [0, 1].map((_, idx) => vec2D.at(idx));
+						const countOccurrences = utility.utils.countOccurrences(vec2DArr);
+						const vec2DArrConsists = Object.values(countOccurrences).every(val => val == numsOnes);
+						expect(vec2DArrConsists).toBeTruthy();
 					 });
 				  });
 				  describe("Too Many Elements", () => {
@@ -318,10 +315,9 @@ describe("A Vector", () => {
 						test("Should not be undefined.", () => {
 						   expect(vec2D).toBeDefined();
 						});
-						test("Should have a direction of '2ᴨ - ᴨ/4 = 7ᴨ/4' radians.", () => {
-						   const direction = vec2D.direction;
-						   const seven_quarterPI = 9 * Math.PI/4;
-						   expect(direction).toBe(seven_quarterPI);
+						test("Should have a direction of '-ᴨ/4' radians.", () => {
+						   const direction = vec2D.direction[0];
+						   expect(direction).toBe(neg_quarterPI);
 						});
 						test("Should have a 'magnitude' of '√2'.", () => {
 						   const magnitude = vec2D.length;
@@ -354,15 +350,12 @@ describe("A Vector", () => {
 						const isOne1stElement = vec2D.indexOf(element) === elementIdx;
 						expect(isOne1stElement).toBeTruthy();
 					 });
-					 // TODO: [1, -1] not [1, 1]
-					 test("Should consist of a two element set of all ones.", () => {
-						const element = 1;
-						let vec2DArr: number[] = [];
-						for(const idx of [0, 1]) {
-						   const whichElement = vec2D.at(idx);
-						   if(whichElement === element) vec2DArr.push(element);
-						}
-						expect(vec2DArr).toHaveLength(vec2DSize);
+					 test("Should consist of a two element set of a one and a negative one.", () => {
+						const numEach = 1;
+						const vec2DArr = [0, 1].map((_, idx) => vec2D.at(idx));
+						const countOccurrences = utility.utils.countOccurrences(vec2DArr);
+						const vec2DArrConsists = Object.values(countOccurrences).every(val => val == numEach);
+						expect(vec2DArrConsists).toBeTruthy();
 					 });
 				  });
 				  describe("Too Many Elements", () => {
@@ -423,18 +416,12 @@ describe("A Vector", () => {
 						const isZeroLastElement = newVec2D.indexOf(element) === elementIdx;
 						expect(isZeroLastElement).toBeTruthy();
 					 });
-					 test("Should consist of two 'one' elements and a final 'zero' element'.", () => {
-						const zeroEl = 0;
-						const onesEl = 1;
-						let vec2DZeroArr: number[] = [];
-						let vec2DOnesArr: number[] = [];
-						for(const idx of [...new Range(newVec2DSize)]) {
-						   const whichElement = newVec2D.at(idx);
-						   if(whichElement === zeroEl) vec2DZeroArr.push(zeroEl);
-						   if(whichElement === onesEl) vec2DOnesArr.push(onesEl);
-						}
-						expect(vec2DZeroArr).toHaveLength(1);
-						expect(vec2DOnesArr).toHaveLength(2);
+					 test("Should consist of 'one' of each element.", () => {
+						const numEach = 1;
+						const newVec2DArr = [0, 1, 2].map((_, idx) => newVec2D.at(idx));
+						const countOccurrences = utility.utils.countOccurrences(newVec2DArr);
+						const vec2DArrConsists = Object.values(countOccurrences).every(val => val == numEach);
+						expect(vec2DArrConsists).toBeTruthy();
 					 });
 				  });
 			   });
@@ -450,7 +437,7 @@ describe("A Vector", () => {
 						test("Should not be undefined.", () => {
 						   expect(newVec2D).toBeDefined();
 						});
-						// the last vector checked above was [1, -1], so now we have [1, -1, 0].
+						// the last vector checked above was [1, -1], so now we have [1, -1, 1].
 						test.todo("Should have a direction, 'ϑ' of 'ᴨ/2' and 'ɸ' of 'ᴨ/4'.");
 						test.todo("Should have a 'magnitude' of '√2'.");
 					 });
@@ -473,24 +460,18 @@ describe("A Vector", () => {
 					 });
 				  });
 				  describe("Element Indexed", () => {
-					 test("Should have a 'zero' as the last element.", () => {
-						const elementIdx = newVec2DSize-1;
-						const element = 0;
-						const isZeroLastElement = newVec2D.indexOf(element) === elementIdx;
-						expect(isZeroLastElement).toBeTruthy();
+					 test("Should have a 'one' as the last element.", () => {
+						const element = 1;
+						const isOneLastElement = newVec2D.at(vec2DSize) === element;
+						expect(isOneLastElement).toBeTruthy();
 					 });
-					 test("Should consist of two 'one' elements and a final 'zero' element'.", () => {
-						const zeroEl = 0;
-						const onesEl = 1;
-						let vec2DZeroArr: number[] = [];
-						let vec2DOnesArr: number[] = [];
-						for(const idx of [...new Range(newVec2DSize)]) {
-						   const whichElement = newVec2D.at(idx);
-						   if(whichElement === zeroEl) vec2DZeroArr.push(zeroEl);
-						   if(whichElement === onesEl) vec2DOnesArr.push(onesEl);
-						}
-						expect(vec2DZeroArr).toHaveLength(1);
-						expect(vec2DOnesArr).toHaveLength(2);
+					 test("Should consist of 'two' ones and 'one' -1.", () => {
+						const numsOnes = 2;
+						const numsNegOne = 1;
+						const newVec2DArr = [0, 1, 2].map((_, idx) => newVec2D.at(idx));
+						const countOccurrences = utility.utils.countOccurrences(newVec2DArr);
+						const vec2DArrConsists = Object.values(countOccurrences).every(val => val == numsOnes || val == numsNegOne);
+						expect(vec2DArrConsists).toBeTruthy();
 					 });
 				  });
 			   });
@@ -531,22 +512,17 @@ describe("A Vector", () => {
 				  describe("Element Indexed", () => {
 					 test("Should have a 'zero' as the last element.", () => {
 						const elementIdx = newVec2DSize-1;
-						const element = 0;
-						const isZeroLastElement = newVec2D.indexOf(element) === elementIdx;
-						expect(isZeroLastElement).toBeTruthy();
+						const element = -1;
+						const isOneLastElement = newVec2D.at(vec2DSize) === element;
+						expect(isOneLastElement).toBeTruthy();
 					 });
-					 test("Should consist of two 'one' elements and a final 'zero' element'.", () => {
-						const zeroEl = 0;
-						const onesEl = 1;
-						let vec2DZeroArr: number[] = [];
-						let vec2DOnesArr: number[] = [];
-						for(const idx of [...new Range(newVec2DSize)]) {
-						   const whichElement = newVec2D.at(idx);
-						   if(whichElement === zeroEl) vec2DZeroArr.push(zeroEl);
-						   if(whichElement === onesEl) vec2DOnesArr.push(onesEl);
-						}
-						expect(vec2DZeroArr).toHaveLength(1);
-						expect(vec2DOnesArr).toHaveLength(2);
+					 test("Should consist of 'two' ones and 'one' -1.", () => {
+						const numsOnes = 2;
+						const numsNegOne = 1;
+						const newVec2DArr = [0, 1, 2].map((_, idx) => newVec2D.at(idx));
+						const countOccurrences = utility.utils.countOccurrences(newVec2DArr);
+						const vec2DArrConsists = Object.values(countOccurrences).every(val => val == numsOnes || val == numsNegOne);
+						expect(vec2DArrConsists).toBeTruthy();
 					 });
 				  });
 			   });
