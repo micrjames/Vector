@@ -110,23 +110,29 @@ export const test_operations = () => {
 			describe("Their elements", () => {
 			   let whichElement: number;
 			   test("Should have elements that are not undefined.", () => {
-				  for(const idx of [...new Range(N)]) {
-					 whichElement = vec2D.at(idx);
-					 expect(whichElement).toBeDefined();
-				  }
+				  for(let vec of vecs)
+					 for(const idx of [...new Range(N)]) {
+						whichElement = vec.at(idx);
+						expect(whichElement).toBeDefined();
+					 }
 			   });
 			   test("Should consist of 2 elements.", () => {
 				  expect(vec2DSize).toBe(N);
+				  expect(otherVec2DSize).toBe(N);
 			   });
 			   test("Should have each element typed as number.", () => {
-				  for(const idx of [...new Range(N)]) {
-					 whichElement = vec2D.at(idx);
-					 expect(whichElement).toEqual(expect.any(Number));
-				  }
+				  for(let vec of vecs)
+					 for(const idx of [...new Range(N)]) {
+						whichElement = vec2D.at(idx);
+						expect(whichElement).toEqual(expect.any(Number));
+					 }
 			   });
 			});
 			describe("The Vectors", () => {
-			   test.todo("Should be 'equal'.");
+			   test("Should be 'equal'.", () => {
+				  const areVecsEqual = vec2D.equals(otherVec2D);
+				  expect(areVecsEqual).toBeTruthy();
+			   });
 			});
 		 });
 		 describe("Scale", () => {

@@ -107,7 +107,7 @@ export class VectorND {
    }
 
    equals(otherVec: VectorND): boolean {
-	  return false;
+	  return this.length == otherVec.length && this.direction.at(0) == otherVec.direction.at(0);
    }
    add(otherVec: VectorND): VectorND {
 	  return this;
