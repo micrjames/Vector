@@ -109,6 +109,30 @@ export class VectorND {
    equals(otherVec: VectorND): boolean {
 	  return false;
    }
+   add(otherVec: VectorND): VectorND {
+	  return this;
+   }
+   sub(otherVec: VectorND): VectorND {
+	  return this;
+   }
+   dot(otherVec: VectorND): number {
+	  const b = Array(this.N).fill(0);
+	  this.utility.dot.operator(this._vec, b);
+	  return -1;
+   }
+
+   angle_between(otherVec: VectorND): number {
+	  return -1;
+   }
+   isInFrontOf(otherVec: VectorND): boolean {
+	  return false;
+   }
+   scalarComp(otherVec: VectorND): number {
+	  return -1;
+   }
+   cross(otherVec: VectorND): VectorND {
+	  return this;
+   }
 
    toString(): String {
 	  let sb = new StringBuilder();
