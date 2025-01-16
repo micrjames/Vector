@@ -7,12 +7,13 @@ export const test_operations = () => {
    let vec2D: VectorND;
    let vec2DSize: number;
    let utility: Utilities;
+   let newValues: number[];
    beforeAll(() => {
 	  N = 2;
 	  vec2D = new VectorND(N);
 	  vec2DSize = vec2D.N;
 	  utility = new Utilities();
-	  const newValues = [1, -1];
+	  newValues = [1, -1];
 	  vec2D.values = newValues;
    });
    describe("By Operation from Non-All Zero Values", () => {
@@ -75,23 +76,35 @@ export const test_operations = () => {
 			});
 		 });
 		 describe("Equals", () => {
+			let vecs: VectorND[];
+			let otherVec2D: VectorND;
+			let otherVec2DSize: number;
 			beforeAll(() => {
+			   otherVec2D = new VectorND(N);
+			   otherVec2D.values = newValues; 
+			   otherVec2DSize = otherVec2D.N;
+			   vecs = [vec2D, otherVec2D];
 			});
 			describe("Each", () => {
-			   let zero: number;
-			   let magnitude: number;
+			   let vec2DMagnitude: number;
+			   let otherVec2DMagnitude: number;
+			   let vec2DDirection: number;
+			   let otherVec2DDirection: number;
 			   beforeAll(() => {
-				  zero = 0;
-				  magnitude = vec2D.length;
+				  vec2DMagnitude = vec2D.length;
+				  otherVec2DMagnitude = otherVec2D.length;
+				  vec2DDirection = vec2D.direction.at(0);
+				  otherVec2DDirection = otherVec2D.direction.at(0);
 			   });
 			   test("Should not be undefined.", () => {
-				  expect(vec2D).toBeDefined();
+				  for(let vec of vecs)
+					 expect(vec).toBeDefined();
 			   });
 			   test("Should have the same direction.", () => {
-				  expect().toBe();
+				  expect(vec2DDirection).toEqual(otherVec2DDirection);
 			   });
 			   test("Should have the same 'magnitude'.", () => {
-				  expect(magnitude).toBe(zero);
+				  expect(vec2DMagnitude).toEqual(otherVec2DMagnitude);
 			   });
 			});
 			describe("Their elements", () => {
