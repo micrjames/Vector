@@ -111,11 +111,13 @@ export class VectorND {
    }
    add(otherVec: VectorND): VectorND {
 	  let summedVecND = new VectorND(this.N);
-	  summedVecND.values = this._vec.map((addend, idx) => this._vec[idx] + otherVec._vec[idx]);
+	  summedVecND.values = [...new Range(this.N)].map((_, idx) => this._vec[idx] + otherVec._vec[idx]);
 	  return summedVecND;
    }
    sub(otherVec: VectorND): VectorND {
-	  return this;
+	  let subbedVecND = new VectorND(this.N);
+	  subbedVecND.values = this._vec.map((_, idx) => this._vec[idx] - otherVec._vec[idx]);
+	  return subbedVecND;
    }
    dot(otherVec: VectorND): number {
 	  const b = Array(this.N).fill(0);
