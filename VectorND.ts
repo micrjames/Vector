@@ -110,7 +110,9 @@ export class VectorND {
 	  return this.length == otherVec.length && this.direction.at(0) == otherVec.direction.at(0);
    }
    add(otherVec: VectorND): VectorND {
-	  return this;
+	  let summedVecND = new VectorND(this.N);
+	  summedVecND.values = this._vec.map((addend, idx) => this._vec[idx] + otherVec._vec[idx]);
+	  return summedVecND;
    }
    sub(otherVec: VectorND): VectorND {
 	  return this;

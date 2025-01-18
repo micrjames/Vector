@@ -123,7 +123,7 @@ export const test_operations = () => {
 			   test("Should have each element typed as number.", () => {
 				  for(let vec of vecs)
 					 for(const idx of [...new Range(N)]) {
-						whichElement = vec2D.at(idx);
+						whichElement = vec.at(idx);
 						expect(whichElement).toEqual(expect.any(Number));
 					 }
 			   });
@@ -247,25 +247,65 @@ export const test_operations = () => {
 	  });
 	  describe("Binary Operations", () => {
 		 describe("Combinations", () => {
-			beforeAll(() => {
-			});
+			let otherVec2D: VectorND;
 			describe("Addition", () => {
+			   let summedVec2D: VectorND;
+			   let summedVec2DMagnitude: number;
+			   let zero: number;
+			   beforeAll(() => {
+				  otherVec2D = new VectorND(vec2D.N);
+				  otherVec2D.values = [-1, 1];
+				  summedVec2D = vec2D.add(otherVec2D);
+				  summedVec2DMagnitude = summedVec2D.length;
+				  zero = 0;
+				  console.log(summedVec2D, vec2D, otherVec2D);
+			   });
 			   describe("Performed", () => {
 				  describe("It", () => {
-					 test.todo("Should not be undefined.");
-					 // TODO: fix values on direction & magnitude.
-					 test.todo("Should have a direction of '0'.");
-					 test.todo("Should have a 'magnitude' of '0'.");
+					 test("Should not be undefined.", () => {
+						expect(summedVec2D).toBeDefined();
+					 });
+					 test("Should have 'No Direction'.", () => {
+						expect(() => {
+						   summedVec2D.direction
+						}).toThrow("Zero Vector, No Direction");
+					 });
+					 test("Should have a 'magnitude' of '0'.", () => {
+						expect(summedVec2DMagnitude).toBe(zero);
+					 });
 				  });
 				  describe("Its Elements", () => {
-					 test.todo("Should have elements that are not undefined.");
-					 test.todo("Should consist of 2 elements.");
-					 test.todo("Should have each element typed as number.");
+					 let whichElement: number;
+					 test("Should have elements that are not undefined.", () => {
+						for(const idx of [...new Range(N)]) {
+						   whichElement = vec2D.at(idx);
+						   expect(whichElement).toBeDefined();
+						}
+					 });
+					 test("Should consist of 2 elements.", () => {
+						expect(vec2DSize).toBe(N);
+					 });
+					 test("Should have each element typed as number.", () => {
+						for(const idx of [...new Range(N)]) {
+						   whichElement = vec2D.at(idx);
+						   expect(whichElement).toEqual(expect.any(Number));
+						}
+					 });
 				  });
 			   });
 			   describe("Element Indexed", () => {
-				  test.todo("Should not equal to either of the previous 'vector's.");
-				  test.todo("Should consist of elements that are the sum of the previous 'vector's elements.");
+				  test("Should not equal to either of the previous 'vector's.", () => {
+				  	 let vecs: VectorND[] = [vec2D, otherVec2D];
+					 for(let vec of vecs)
+						for(let idx of [...new Range(N)])
+						   expect(summedVec2D.at(idx)).not.toBe(vec.at(idx));
+				  });
+				  test("Should consist of elements that are the sum of the previous 'vector's elements.", () => {
+				  	 let vecs: VectorND[] = [vec2D, otherVec2D];
+					 for(let vec of vecs)
+						for(let idx of [...new Range(N)])
+						   expect(summedVec2D.at(idx)).toBe(vec.at(0) + vec.at(1));
+				  });
 			   });
 			});
 			describe("Subtraction", () => {
